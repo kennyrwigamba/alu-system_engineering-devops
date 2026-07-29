@@ -1,20 +1,7 @@
 #!/usr/bin/env bash
-# Kills the competing Apache process, then starts Nginx directly as the
-# nginx user (master and workers) listening on port 8080.
-pkill apache2 2>/dev/null
-sleep 1
-
-if ! id -u nginx &>/dev/null; then
-    useradd --system --no-create-home --shell /usr/sbin/nologin nginx
-fi
-
-sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
-sed -i 's|^pid .*|pid /var/lib/nginx/nginx.pid;|' /etc/nginx/nginx.conf
-sed -i 's/listen 80/listen 8080/g; s/listen \[::\]:80/listen [::]:8080/g' /etc/nginx/sites-enabled/default
-
-mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi
-chown -R nginx:nginx /var/lib/nginx /var/log/nginx
-
-pkill -f 'nginx: master' 2>/dev/null
-sleep 1
-su -s /bin/bash nginx -c /usr/sbin/nginx
+# Configures Nginx to run as the nginx user and listen on IPv4 port 8080.
+sed -i 's/^#*user www-data;/user nginx;/' /etc/nginx/nginx.conf
+sed -i 's/80/8080/g' /etc/nginx/sites-available/default
+chmod 644 /etc/nginx/nginx.conf
+pkill apache2
+sudo -u nginx service nginx restart
