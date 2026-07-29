@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+# Creates the nginx user, and starts Nginx directly as that user (master and
+# workers) listening on port 8080, since Ubuntu's nginx package only ships
+# the www-data user and runs the master process as root by default.
+if ! id -u nginx &>/dev/null; then
+    useradd --system --no-create-home --shell /usr/sbin/nologin nginx
+fi
+
+sed -i 's/^user .*/user nginx;/' /etc/nginx/nginx.conf
+sed -i 's|^pid .*|pid /var/lib/nginx/nginx.pid;|' /etc/nginx/nginx.conf
+sed -i 's/listen 80/listen 8080/g; s/listen \[::\]:80/listen [::]:8080/g' /etc/nginx/sites-enabled/default
+
+mkdir -p /var/lib/nginx/body /var/lib/nginx/proxy /var/lib/nginx/fastcgi /var/lib/nginx/uwsgi /var/lib/nginx/scgi
+chown -R nginx:nginx /var/lib/nginx /var/log/nginx
+
+pkill -f 'nginx: master' 2>/dev/null
+sleep 1
+su -s /bin/bash nginx -c /usr/sbin/nginx
