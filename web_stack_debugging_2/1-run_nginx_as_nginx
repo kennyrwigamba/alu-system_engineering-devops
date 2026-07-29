@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
-# Creates the nginx user, and starts Nginx directly as that user (master and
-# workers) listening on port 8080, since Ubuntu's nginx package only ships
-# the www-data user and runs the master process as root by default.
+# Kills the competing Apache process, then starts Nginx directly as the
+# nginx user (master and workers) listening on port 8080.
+pkill apache2 2>/dev/null
+sleep 1
+
 if ! id -u nginx &>/dev/null; then
     useradd --system --no-create-home --shell /usr/sbin/nologin nginx
 fi
