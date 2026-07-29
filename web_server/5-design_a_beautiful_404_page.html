@@ -3,18 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#07111f">
-  <title>404 — Lost in the Stack</title>
+  <meta name="theme-color" content="#fafaf9">
+  <title>404 — Page not found</title>
   <style>
     :root {
-      color-scheme: dark;
-      --ink: #f4f7fb;
-      --muted: #9aabc0;
-      --panel: rgba(12, 27, 45, 0.74);
-      --line: rgba(148, 179, 210, 0.16);
-      --cyan: #64d9ff;
-      --mint: #68f0bd;
-      --violet: #9b8cff;
+      color-scheme: light;
+      --ink: #1c2128;
+      --muted: #6b7280;
+      --line: #e5e7eb;
+      --paper: #ffffff;
+      --accent: #2563eb;
+      --accent-soft: #eef2ff;
     }
 
     * {
@@ -30,311 +29,101 @@
     body {
       display: grid;
       place-items: center;
-      overflow-x: hidden;
       padding: 32px;
-      background:
-        radial-gradient(circle at 12% 18%, rgba(100, 217, 255, 0.13), transparent 28rem),
-        radial-gradient(circle at 88% 82%, rgba(155, 140, 255, 0.16), transparent 30rem),
-        linear-gradient(145deg, #050b14, #091725 55%, #07111f);
+      background: #fafaf9;
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-    }
-
-    body::before {
-      position: fixed;
-      inset: 0;
-      z-index: -1;
-      background-image:
-        linear-gradient(var(--line) 1px, transparent 1px),
-        linear-gradient(90deg, var(--line) 1px, transparent 1px);
-      background-size: 46px 46px;
-      content: "";
-      mask-image: radial-gradient(circle at center, black, transparent 82%);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Inter, Roboto, sans-serif;
     }
 
     main {
-      width: min(1040px, 100%);
-      border: 1px solid rgba(169, 204, 235, 0.18);
-      border-radius: 30px;
-      background: var(--panel);
-      box-shadow: 0 32px 90px rgba(0, 0, 0, 0.42);
-      backdrop-filter: blur(18px);
+      width: min(560px, 100%);
+      text-align: center;
+      padding: clamp(40px, 6vw, 64px) clamp(28px, 5vw, 48px);
     }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 20px 24px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand,
-    .status {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .brand-mark {
-      display: grid;
-      width: 30px;
-      height: 30px;
-      place-items: center;
-      border: 1px solid rgba(100, 217, 255, 0.38);
-      border-radius: 9px;
-      background: rgba(100, 217, 255, 0.1);
-      color: var(--cyan);
-    }
-
-    .status {
-      color: var(--muted);
-    }
-
-    .status-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: var(--mint);
-      box-shadow: 0 0 18px var(--mint);
-    }
-
-    .content {
-      display: grid;
-      grid-template-columns: 1.05fr 0.95fr;
-      min-height: 520px;
-    }
-
-    .copy {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: clamp(42px, 7vw, 78px);
-    }
-
-    .eyebrow {
-      margin: 0 0 18px;
-      color: var(--cyan);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.78rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+    .code {
+      margin: 0;
+      color: var(--accent);
+      font-size: clamp(4.5rem, 14vw, 6.5rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1;
     }
 
     h1 {
-      max-width: 620px;
-      margin: 0;
-      font-size: clamp(2.75rem, 7vw, 5.8rem);
-      letter-spacing: -0.065em;
-      line-height: 0.92;
+      margin: 18px 0 12px;
+      font-size: clamp(1.35rem, 3vw, 1.65rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
 
     .required-copy {
-      margin: 28px 0 10px;
-      color: var(--ink);
-      font-size: clamp(1.15rem, 2vw, 1.45rem);
-      font-weight: 650;
+      display: inline-block;
+      margin: 0 0 22px;
+      padding: 6px 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 600;
     }
 
     .explanation {
-      max-width: 490px;
-      margin: 0;
+      max-width: 420px;
+      margin: 0 auto 32px;
       color: var(--muted);
       font-size: 1rem;
-      line-height: 1.75;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 34px;
+      line-height: 1.6;
     }
 
     .button {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      min-height: 48px;
-      padding: 0 20px;
-      border: 1px solid rgba(100, 217, 255, 0.4);
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--cyan), var(--mint));
-      box-shadow: 0 12px 34px rgba(100, 217, 255, 0.16);
-      color: #06111e;
-      font-size: 0.92rem;
-      font-weight: 800;
+      gap: 8px;
+      height: 46px;
+      padding: 0 22px;
+      border: 1px solid var(--ink);
+      border-radius: 10px;
+      background: var(--ink);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 600;
       text-decoration: none;
-      transition: transform 180ms ease, box-shadow 180ms ease;
+      transition: transform 150ms ease, background 150ms ease;
     }
 
     .button:hover {
-      box-shadow: 0 16px 42px rgba(100, 217, 255, 0.26);
-      transform: translateY(-2px);
+      background: #000;
+      transform: translateY(-1px);
     }
 
     .button:focus-visible {
-      outline: 3px solid rgba(100, 217, 255, 0.38);
-      outline-offset: 4px;
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
     }
 
-    .visual {
-      position: relative;
-      display: grid;
-      min-height: 420px;
-      place-items: center;
-      overflow: hidden;
-      border-left: 1px solid var(--line);
-    }
-
-    .error-code {
-      position: relative;
-      z-index: 2;
-      background: linear-gradient(135deg, var(--ink) 10%, var(--cyan) 55%, var(--violet));
-      background-clip: text;
-      color: transparent;
-      font-size: clamp(7rem, 15vw, 12rem);
-      font-weight: 900;
-      letter-spacing: -0.09em;
-      line-height: 1;
-      filter: drop-shadow(0 16px 32px rgba(100, 217, 255, 0.16));
-    }
-
-    .orbit {
-      position: absolute;
-      width: min(360px, 74%);
-      aspect-ratio: 1;
-      border: 1px solid rgba(100, 217, 255, 0.25);
-      border-radius: 50%;
-      animation: rotate 18s linear infinite;
-    }
-
-    .orbit::before,
-    .orbit::after {
-      position: absolute;
-      border-radius: 50%;
-      content: "";
-    }
-
-    .orbit::before {
-      top: 12%;
-      left: 3%;
-      width: 18px;
-      height: 18px;
-      background: var(--mint);
-      box-shadow: 0 0 28px var(--mint);
-    }
-
-    .orbit::after {
-      right: 8%;
-      bottom: 8%;
-      width: 11px;
-      height: 11px;
-      background: var(--violet);
-      box-shadow: 0 0 24px var(--violet);
-    }
-
-    .orbit-inner {
-      position: absolute;
-      width: min(250px, 52%);
-      aspect-ratio: 1;
-      border: 1px dashed rgba(155, 140, 255, 0.36);
-      border-radius: 50%;
-      animation: rotate 12s linear infinite reverse;
-    }
-
-    .coordinates {
-      position: absolute;
-      right: 24px;
-      bottom: 20px;
-      color: rgba(154, 171, 192, 0.68);
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-      font-size: 0.69rem;
-      letter-spacing: 0.08em;
-    }
-
-    @keyframes rotate {
-      to {
-        transform: rotate(360deg);
-      }
-    }
-
-    @media (max-width: 760px) {
-      body {
-        padding: 18px;
-      }
-
-      .status {
-        display: none;
-      }
-
-      .content {
-        grid-template-columns: 1fr;
-      }
-
-      .copy {
-        padding: 48px 30px 30px;
-      }
-
-      .visual {
-        min-height: 300px;
-        border-top: 1px solid var(--line);
-        border-left: 0;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
-        scroll-behavior: auto !important;
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-      }
+    footer {
+      margin-top: 40px;
+      color: #9ca3af;
+      font-size: 0.8rem;
     }
   </style>
 </head>
 <body>
   <main>
-    <header class="topbar">
-      <div class="brand">
-        <span class="brand-mark" aria-hidden="true">S</span>
-        <span>Samhez.tech</span>
-      </div>
-      <div class="status">
-        <span class="status-dot" aria-hidden="true">&#8203;</span>
-        Server online · Route missing
-      </div>
-    </header>
-
-    <section class="content">
-      <div class="copy">
-        <p class="eyebrow">HTTP exception // resource not found</p>
-        <h1>Lost in the stack.</h1>
-        <p class="required-copy">Ceci n'est pas une page</p>
-        <p class="explanation">
-          The server is healthy, but this route drifted beyond the known web.
-          Head back home and continue exploring from a stable endpoint.
-        </p>
-        <div class="actions">
-          <a class="button" href="/" aria-label="Return to the homepage">
-            <span aria-hidden="true">←</span>
-            Return home
-          </a>
-        </div>
-      </div>
-
-      <div class="visual" aria-hidden="true">
-        <div class="orbit"></div>
-        <div class="orbit-inner"></div>
-        <div class="error-code">404</div>
-        <div class="coordinates">ERR_ROUTE_NOT_FOUND · 04:04</div>
-      </div>
-    </section>
+    <p class="code" aria-hidden="true">404</p>
+    <h1>This page took a wrong turn.</h1>
+    <p class="required-copy">Ceci n'est pas une page</p>
+    <p class="explanation">
+      The link you followed doesn't lead anywhere on this server.
+      It may have moved, or never existed at all.
+    </p>
+    <a class="button" href="/">
+      <span aria-hidden="true">&larr;</span>
+      Back to home
+    </a>
+    <footer>Error code 404 &middot; Not Found</footer>
   </main>
 </body>
 </html>
